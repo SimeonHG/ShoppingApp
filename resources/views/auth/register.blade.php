@@ -15,14 +15,29 @@
                     @csrf
 
                     <div class="flex flex-wrap">
-                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('Name') }}:
+                        <label for="fname" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('First Name') }}:
                         </label>
 
-                        <input id="name" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
-                            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                        <input id="fname" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
+                            name="fname" value="{{ old('fname') }}" required autocomplete="fname" autofocus>
 
-                        @error('name')
+                        @error('fname')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-wrap">
+                        <label for="lname" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('Last Name') }}:
+                        </label>
+
+                        <input id="lname" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
+                            name="lname" value="{{ old('lname') }}" required autocomplete="lname" autofocus>
+
+                        @error('lname')
                         <p class="text-red-500 text-xs italic mt-4">
                             {{ $message }}
                         </p>
@@ -39,6 +54,51 @@
                             value="{{ old('email') }}" required autocomplete="email">
 
                         @error('email')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-wrap">
+                        <label for="address" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('Address') }}:
+                        </label>
+
+                        <input id="address" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
+                            name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
+
+                        @error('address')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-wrap">
+                        <label for="age" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('Age') }}:
+                        </label>
+
+                        <input id="age" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
+                            name="age" value="{{ old('age') }}" required autocomplete="age" autofocus>
+
+                        @error('age')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-wrap">
+                        <label for="gender" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('Gender') }}:
+                        </label>
+
+                        <input id="gender" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
+                            name="gender" value="{{ old('gender') }}" required autocomplete="gender" autofocus>
+
+                        @error('gender')
                         <p class="text-red-500 text-xs italic mt-4">
                             {{ $message }}
                         </p>
