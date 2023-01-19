@@ -1,0 +1,12 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+.background-image{
+    background-image: url('https://i.ibb.co/xC9mTk5/medium-rare.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 600px;
+}
