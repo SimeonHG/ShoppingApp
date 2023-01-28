@@ -20,9 +20,29 @@
 
     <div class="w-4/5 m-auto pt-20">
         @foreach($contact->labels as $label)
-            <span style="color:white; background-color: {{ $label->color }}; width: 200px; height: 100px;border: 1px solid black; padding:10px 16px;">
-                {{$label->name}}
-            </span>
+            
+            @if (isset(Auth::user()->id) && Auth::user()->id == $contact->user_id)  
+            
+                <form action="/labels/{{$label->id}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <input type="text" name="name" value="{{$label->name}}" style="color:white; background-color: {{ $label->color }}; width: 100px; height: 50px;border: 1px solid black;">
+                    <input type="color" name="color" value="{{ $label->color }}">
+                    <input type="hidden" name="contact_id" value="{{$label->contact_id}}">
+                    <div>
+                    <button type="submit"> 
+                        Save
+                    </button>
+                    </div>
+                </form>
+                <form action="/labels/{{$label->id}}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <button type="submit">
+                        Delete
+                    </button>
+                </form>
+            @endif
         @endforeach
         
     </div>
@@ -32,17 +52,14 @@
         <form action="/labels" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <input type="text" name="name" placeholder="Name"
-                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none" required>
+                <input type="text" name="name" placeholder="Name" required>
 
                 <input type="color" name="color" value="#e66465">
 
                 <input type="hidden" name="contact_id" value="{{$contact->id}}">
 
-                <button 
-                    type="submit"
-                    class="uppercase mt-15 bg-green-400 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
-                    Submit Label
+                <button type="submit">
+                    Submit
                 </button>
         </form>
     </div>

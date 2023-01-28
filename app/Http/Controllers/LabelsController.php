@@ -49,14 +49,14 @@ class LabelsController extends Controller
         ]);
 
 
-        Contact::where('id', $id)
+        Label::where('id', $id)
         ->update([
             'name' => $request->input('name'),
             'color' => $request->input('color'),
             'contact_id' => $request->input('contact_id'),
         ]);
     
-        return view('contacts.show')->with('contact', Contact::where('id', $id)->first())->with('message', 'Label changed!');
+        return view('contacts.show')->with('contact', Contact::where('id', $request->input('contact_id'))->first())->with('message', 'Label changed!');
     }
 
     /**
@@ -67,9 +67,10 @@ class LabelsController extends Controller
      */
     public function destroy($id)
     {
-        $contact = Label::where('id', $id);
-        $contact->delete();
+        $label = Label::where('id', $id);
+        $contact_id = $label->first()->contact_id;
+        $label->delete();
 
-        return view('contacts.show')->with('contact', Contact::where('id', $id)->first())->with('message', 'Label deleted!');
+        return view('contacts.show')->with('contact', Contact::where('id', $contact_id)->first())->with('message', 'Label deleted!');
     }
 }
