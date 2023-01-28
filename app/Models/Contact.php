@@ -28,4 +28,12 @@ class Contact extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the labels for the contact.
+     */
+    public function labels()
+    {
+        return $this->hasMany(Label::class);
+    }
 }
