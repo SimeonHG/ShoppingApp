@@ -43,7 +43,6 @@
                 <input type="text" name="gender" placeholder="gender" value="{{ Auth::user()->gender }}"
                     class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none" required>
 
-
                 <button 
                     type="submit"
                     class="uppercase mt-15 bg-green-400 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">

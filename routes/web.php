@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PagesController;
 use \App\Http\Controllers\PostsController;
 use \App\Http\Controllers\ContactsController;
+use \App\Http\Controllers\LabelsController;
+
 use \App\Http\Controllers\UsersController;
 
 /*
@@ -19,6 +21,8 @@ use \App\Http\Controllers\UsersController;
 Route::get('/', [PagesController::class, 'index']);
 
 Route::resource('/contacts', ContactsController::class);
+
+Route::resource('/labels', LabelsController::class);
 
 Route::resource('/users', UsersController::class);
 
