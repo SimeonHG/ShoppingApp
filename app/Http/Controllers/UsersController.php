@@ -22,7 +22,12 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'email' => 'required'
+            'email' => 'required',
+            'fname' => 'required',
+            'lname' => 'required',
+            'address' => 'required',
+            'gender' => 'required',
+            'age' => 'required'
         ]);
 
         User::where('id', $id)

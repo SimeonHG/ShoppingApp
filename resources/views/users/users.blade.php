@@ -26,23 +26,22 @@
                 @method('PUT')
 
                 <input type="text" name="email" placeholder="Email" value="{{ Auth::user()->email }}"
-                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none">
+                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none" required>
 
                 <input type="text" name="fname" placeholder="First Name" value="{{ Auth::user()->fname }}"
-                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none">
+                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none" required>
 
                 <input type="text" name="lname" placeholder="Last Name" value="{{ Auth::user()->lname }}"
-                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none">
+                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none" required>
                 
                 <input type="text" name="age" placeholder="Age" value="{{ Auth::user()->age }}"
-                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none">
+                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none" required>
 
                 <input type="text" name="address" placeholder="Address" value="{{ Auth::user()->address }}"
-                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none">
+                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none" required>
 
                 <input type="text" name="gender" placeholder="gender" value="{{ Auth::user()->gender }}"
-                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none">
-
+                    class="bg-transparent block border-b-2 w-full h-20 text-4xl outline-none" required>
 
                 <button 
                     type="submit"
