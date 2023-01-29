@@ -70,61 +70,67 @@
         </div>
     </div>
 
-
-    <div class="w-4/5 m-auto pt-20">
-        @foreach($labels as $label)
-            
-            @if (isset(Auth::user()->id) && Auth::user()->id == $contact->user_id)  
-            
-                <form action="/labels/{{ $label->id }}/attachContact" method="POST" enctype="multipart/form-data">
+    <div class="w-4/5 m-auto pt-5">
+        <div class="mb-3">
+            <span class="font-bold">Attached labels:</span>
+        </div>
+        <div class="flex flex-col">
+            @foreach($contact->labels as $label)
+                @if (isset(Auth::user()->id) && Auth::user()->id == $contact->user_id)  
+                <form action="/labels/{{ $label->id }}/detachContact" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
-                    <p name="name" style="color:white; background-color: {{ $label->color }}; width: 100px; height: 50px;border: 1px solid black;">{{$label->name}}</p>
-                    <p name="color" value="{{ $label->color }}">
-                    <input type="hidden" name="contact_id" value="{{ $contact->id }}">
-                    <button type="submit"> 
-                        Attach
-                    </button>
+                    <div class="w-2/4 border-b border-gray-200">
+                        <div class="flex justify-between">
+                            <div class="flex w-3/4">
+                                <h2 class="w-2/4 text-gray-700 font-bold text-3xl pb-4">
+                                    {{ $label->name }}
+                                </h2>
+                                <div class="ml-5 w-2/4 h-10 text-transparent rounded-3xl" style="background: {{ $label->color }}">
+                                    {{ $label->color }}
+                                </div>
+                            </div>
+                            <input type="hidden" name="contact_id" value="{{ $contact->id }}">
+                            <button type="submit"> 
+                                Attach
+                            </button>
+                        </div>
+                    </div>
                 </form>
-                <!-- <form action="/labels/{{$label->id}}" method="POST">
-                    @csrf
-                    @method('delete')
-                    <button type="submit">
-                        Delete
-                    </button>
-                </form> -->
-            @endif
-        @endforeach
-        
+                @endif
+            @endforeach
+        </div>
     </div>
 
-    <div class="w-4/5 m-auto pt-20">
-        Added labels:
-        @foreach($contact->labels as $label)
-
-            @if (isset(Auth::user()->id) && Auth::user()->id == $contact->user_id)  
-            
-            <form action="/labels/{{ $label->id }}/detachContact" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('POST')
-                <p name="name" style="color:white; background-color: {{ $label->color }}; width: 100px; height: 50px;border: 1px solid black;">{{$label->name}}</p>
-                <p name="color" value="{{ $label->color }}">
-                <input type="hidden" name="contact_id" value="{{ $contact->id }}">
-                <button type="submit"> 
-                    Detach
-                </button>
-            </form>
-                <!-- <form action="/labels/{{$label->id}}" method="POST">
-                    @csrf
-                    @method('delete')
-                    <button type="submit">
-                        Delete
-                    </button>
-                </form> -->
-            @endif
-        @endforeach
-        
+    <div class="w-4/5 m-auto pt-10">
+        <div class="mb-3">
+            <span class="font-bold">Unattached labels:</span>
+        </div>
+        <div class="flex flex-col">
+            @foreach($labels as $label)
+                @if (isset(Auth::user()->id) && Auth::user()->id == $contact->user_id)  
+                    <form action="/labels/{{ $label->id }}/attachContact" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('POST')
+                        <div class="w-2/4 border-b border-gray-200 pt-2">
+                            <div class="flex justify-between">
+                                <div class="flex w-3/4">
+                                    <h2 class="w-2/4 text-gray-700 font-bold text-3xl pb-4">
+                                        {{ $label->name }}
+                                    </h2>
+                                    <div class="ml-5 w-2/4 h-10 text-transparent rounded-3xl" style="background: {{ $label->color }}">
+                                        {{ $label->color }}
+                                    </div>
+                                </div>
+                                <input type="hidden" name="contact_id" value="{{ $contact->id }}">
+                                <button type="submit"> 
+                                    Attach
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                @endif
+            @endforeach
+        </div>
     </div>
-    
-
 @endsection('content')

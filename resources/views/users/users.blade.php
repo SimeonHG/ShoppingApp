@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
     <div class="w-4/5 m-auto text-center">
-        <div class="py-15 text-left">
-            <h1 class="text-6xl">
+        <div class="pt-15 text-center">
+            <h1 class="my-5 text-6xl font-bold">
                 Update User
             </h1>
         </div>
@@ -45,7 +45,7 @@
 
                 <button 
                     type="submit"
-                    class="uppercase mt-15 bg-green-400 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
+                    class="uppercase mt-5 bg-blue-900 text-white text-lg font-extrabold py-4 px-8 rounded-3xl">
                     Apply
                 </button>
         </form>

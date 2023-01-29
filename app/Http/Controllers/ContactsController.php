@@ -125,7 +125,20 @@ class ContactsController extends Controller
 
     public function popular()
     {
-        return view('contacts.popular');
+        $labels = Label::orderBy('updated_at', 'DESC')->get();
+        $max = $labels->first();
+        $maxCount = $labels->first()->contacts->count();
+        foreach ($labels as $label)
+        {
+            if ($label->contacts->count() > $maxCount)
+            {
+                $max = $label;
+                $maxCount = $label->contacts->count();
+            }
+        }
+        error_log($label);
+        return view('contacts.popular')
+            ->with('contacts', $max->contacts);        ;
     }
 
     public function sameFirstName()
