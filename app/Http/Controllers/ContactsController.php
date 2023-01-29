@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Contact;
+use App\Models\Label;
 use Illuminate\Http\Request;
 
 class ContactsController extends Controller
@@ -64,7 +65,7 @@ class ContactsController extends Controller
      */
     public function show($id)
     {
-        return view('contacts.show')->with('contact', Contact::where('id', $id)->first());
+        return view('contacts.show')->with('contact', Contact::where('id', $id)->first())->with('labels', Label::orderBy('updated_at', 'DESC')->get());
     }
 
     /**

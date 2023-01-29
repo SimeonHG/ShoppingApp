@@ -31,6 +31,16 @@ class LabelsController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('labels.create');
+    }
+
+    /**
      * Store a label in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -41,17 +51,26 @@ class LabelsController extends Controller
         $request->validate([
             'name' => 'required',
             'color' => 'required',
-            'contact_id' => 'required'
         ]);
 
 
         Label::create([
             'name' => $request->input('name'),
             'color' => $request->input('color'),
-            'contact_id' => $request->input('contact_id'),
-
+            'user_id' => auth()->user()->id,
         ]);
-        return view('contacts.show')->with('contact', Contact::where('id', $request->input('contact_id'))->first())->with('message', 'Contact labeled!');
+        return redirect('/labels');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        return view('labels.edit')->with('label', Label::where('id', $id)->first());
     }
 
     /**
@@ -66,7 +85,6 @@ class LabelsController extends Controller
         $request->validate([
             'name' => 'required',
             'color' => 'required',
-            'contact_id' => 'required'
         ]);
 
 
@@ -74,10 +92,28 @@ class LabelsController extends Controller
         ->update([
             'name' => $request->input('name'),
             'color' => $request->input('color'),
-            'contact_id' => $request->input('contact_id'),
+            'user_id' => auth()->user()->id,
         ]);
-    
-        return view('contacts.show')->with('contact', Contact::where('id', $request->input('contact_id'))->first())->with('message', 'Label changed!');
+
+        return redirect('/labels');
+    }
+
+    public function attachContact(Request $request, $id)
+    {
+        $label = Label::find($id);
+        $label->contacts()->attach($request->input('contact_id'));
+        $label->save();
+
+        return view('contacts.show')->with('contact', Contact::where('id', $request->input('contact_id'))->first())->with('labels', Label::orderBy('updated_at', 'DESC')->get());
+    }
+
+    public function detachContact(Request $request, $id)
+    {
+        $label = Label::find($id);
+        $label->contacts()->detach($request->input('contact_id'));
+        $label->save();
+
+        return view('contacts.show')->with('contact', Contact::where('id', $request->input('contact_id'))->first())->with('labels', Label::orderBy('updated_at', 'DESC')->get());
     }
 
     /**
@@ -92,6 +128,6 @@ class LabelsController extends Controller
         $contact_id = $label->first()->contact_id;
         $label->delete();
 
-        return view('contacts.show')->with('contact', Contact::where('id', $contact_id)->first())->with('message', 'Label deleted!');
+        return redirect('/labels');
     }
 }

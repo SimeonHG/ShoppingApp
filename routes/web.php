@@ -33,6 +33,9 @@ Route::post('/contacts/getGivenContact', [ContactsController::class, 'getGivenCo
 
 Route::resource('/contacts', ContactsController::class);
 
+Route::post('/labels/{id}/attachContact', [LabelsController::class, 'attachContact'])->name('attachContact');
+Route::post('/labels/{id}/detachContact', [LabelsController::class, 'detachContact'])->name('detachContact');
+
 Route::resource('/labels', LabelsController::class);
 
 Route::resource('/users', UsersController::class);

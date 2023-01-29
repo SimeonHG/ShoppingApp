@@ -34,6 +34,6 @@ class Contact extends Model
      */
     public function labels()
     {
-        return $this->hasMany(Label::class);
+        return $this->belongsToMany(Label::class, 'contacts_labels');
     }
 }

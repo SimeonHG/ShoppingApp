@@ -18,10 +18,8 @@ class CreateLabelsTable extends Migration
             $table->timestamps();
             $table->string("name");
             $table->string("color");
-            $table->integer('contact_id')->unsigned();
-            $table->foreign('contact_id')->references('id')->on('contacts')
-                ->onDelete('cascade');
-
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

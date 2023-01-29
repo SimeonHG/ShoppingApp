@@ -10,7 +10,7 @@
 
     @if (Auth::check())
         <div class="pt-15 w-4/5 m-auto">
-            <a href="" class=" bg-blue-900 uppercase bg-transparent text-white text-lg font-extrabold py-4 px-7 rounded-3xl">
+            <a href="/labels/create" class=" bg-blue-900 uppercase bg-transparent text-white text-lg font-extrabold py-4 px-7 rounded-3xl">
                 Create Label
             </a>
         </div>
@@ -27,10 +27,9 @@
                 </div>
             </div>
             <div class="pt-10">
-                @if (isset(Auth::user()->id) && Auth::user()->id)
+                @if (isset(Auth::user()->id) && Auth::user()->id == $label->user_id)
                     <span class="float-right">
-                        <form action=""
-                            method="POST">
+                        <form action="/labels/{{$label->id}}" method="POST">
                             @csrf
                             @method('delete')
                             <button class="text-red-500 pl-3" type="submit">
@@ -39,7 +38,12 @@
                         </form>
                     </span>
                     <span class="float-right">
-                        <a href="" class="uppercase bg-blue-900 text-white text-md font-extrabold py-3 px-8 rounded-3xl">
+                        <a href="/labels/{{ $label->id }}" class="uppercase bg-blue-900 text-white text-md font-extrabold py-3 px-8 rounded-3xl">
+                            Show
+                        </a>
+                    </span>        
+                    <span class="float-right">
+                        <a href="/labels/{{$label->id}}/edit" class="uppercase bg-blue-900 text-white text-md font-extrabold py-3 px-8 rounded-3xl">
                             Edit
                         </a>
                     </span>        

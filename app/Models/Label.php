@@ -12,14 +12,14 @@ class Label extends Model
     protected $fillable = [
         'name',
         'color',
-        'contact_id'
+        'user_id'
     ];
 
     /**
-     * Get the contact that owns the label.
+     * Get all the contacts with this label.
      */
-    public function post()
+    public function contacts()
     {
-        return $this->belongsTo(Contact::class);
+        return $this->belongsToMany(Contact::class, 'contacts_labels');
     }
 }
