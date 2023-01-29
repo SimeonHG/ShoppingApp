@@ -136,7 +136,7 @@ class ContactsController extends Controller
                 $maxCount = $label->contacts->count();
             }
         }
-        error_log($label);
+
         return view('contacts.popular')
             ->with('contacts', $max->contacts);        ;
     }
