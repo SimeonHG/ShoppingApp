@@ -8,6 +8,27 @@ use Illuminate\Http\Request;
 
 class LabelsController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('labels.index')
+            ->with('labels', Label::orderBy('updated_at', 'DESC')->get());
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return view('labels.show')->with('label', Label::where('id', $id)->first());
+    }
 
     /**
      * Store a label in storage.

@@ -1,12 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <div class="w-4/5 m-auto text-center">
-        <div class="py-15 border-b border-gray-200">
-            <h1 class="text-6xl">
+        <div class="pt-15 border-b border-gray-200">
+            <h1 class="my-5 text-6xl font-bold">
                 Contacts
             </h1>
         </div>
-    
     </div>
 
     @if (session()->has('message'))
@@ -19,46 +18,33 @@
 
     @if (Auth::check())
         <div class="pt-15 w-4/5 m-auto">
-            <a href="/contacts/create" class=" bg-green-400 uppercase bg-transparent text-gray-100 text-xs font-extrabold py-3 px-5 rounded-3xl">
+            <a href="/contacts/create" class=" bg-blue-900 uppercase bg-transparent text-white text-lg font-extrabold py-4 px-7 rounded-3xl">
                 Create Contact
             </a>
         </div>
     @endif
 
     @foreach ($contacts as $contact)
-    <div class="sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-15 border-b border-gray-200"> 
-        <div>
-            <h2 class="text-gray-700 font-bold text-5xl pb-4">
+    <div class="flex flex-col w-4/5 mx-auto py-12 border-b border-gray-200"> 
+        <div class="flex">
+            <h2 class="text-gray-700 font-bold text-5xl pb-4 mr-3">
                 {{ $contact->fname }}
             </h2>
             <h2 class="text-gray-700 font-bold text-5xl pb-4">
                 {{ $contact->lname }}
             </h2>
+        </div>
+        <div class="flex flex-col">
             <span class="text-gray-700">
-                {{ $contact->firmName }}
+                Mobile Number: <span class="font-bold">{{ $contact->mobileNumber }}</span>
             </span>
-            <span class="text-gray-700">
-                {{ $contact->adress }}
+            <span class="text-gray-700 mt-3">
+                Email: <span class="font-bold">{{ $contact->email }}</span>
             </span>
-            <span class="text-gray-700">
-                {{ $contact->phoneNumber }}
-            </span>
-            <span class="text-gray-700">
-                {{ $contact->mobileNumber }}
-            </span>
-            <span class="text-gray-700">
-                {{ $contact->email }}
-            </span>
-            <span class="text-gray-700">
-                {{ $contact->fax }}
-            </span>
+        </div>
 
-
-            <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light lin">
-                {{ substr($contact->comment,0, 250) }} ...
-            </p>
-
-            <a href="/contacts/{{ $contact->id }}" class="uppercase bg-green-400 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
+        <div class="pt-10">
+            <a href="/contacts/{{ $contact->id }}" class="uppercase bg-blue-900 text-white text-md font-extrabold py-3 px-5 rounded-3xl">
                 Keep Reading
             </a>
             @if (isset(Auth::user()->id) && Auth::user()->id == $contact->user_id)
@@ -73,11 +59,10 @@
                     </form>
                 </span>    
                 <span class="float-right">
-                        <a href="/contacts/{{ $contact->id }}/edit" class="uppercase italic bg-green-400 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
-                            Edit
-                        </a>
-                    </span>
-                    
+                    <a href="/contacts/{{ $contact->id }}/edit" class="uppercase bg-blue-900 text-white text-md font-extrabold py-3 px-8 rounded-3xl">
+                        Edit
+                    </a>
+                </span>        
             @endif
         </div>
     </div>

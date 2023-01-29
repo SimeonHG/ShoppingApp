@@ -1,4 +1,4 @@
-<footer class="bg-gray-800 py-20 mt-20">
+<footer class="bg-black pt-10">
     <div class="sm:grid grid-cols-3 w-4/5 pb-10 m-auto border-b-2 border-gray-700">
         <div>
             <h3 class="text-l sm:font-bold text-gray-100">
@@ -10,13 +10,13 @@
                     <a href="/">Home</a>
                 </li>
                 <li class="pb-1">
-                    <a href="/blog">Blog</a>
+                    <a href="/contacts">Contacts</a>
                 </li>
                 <li class="pb-1">
-                    <a href="/login">Login</a>
+                    <a href="/labels">Labels</a>
                 </li>
                 <li class="pb-1">
-                    <a href="/register">Register</a>
+                    <a href="/requests">Requests</a>
                 </li>
             </ul>
         </div>
@@ -31,7 +31,7 @@
                     <a href="/">What we do</a>
                 </li>
                 <li class="pb-1">
-                    <a href="/">Adress</a>
+                    <a href="/">Address</a>
                 </li>
                 <li class="pb-1">
                     <a href="/">Phone</a>
@@ -62,8 +62,5 @@
                 </li>
             </ul>
         </div>
-        <p class="w-25 w-4/5 pb-3 m-auto text-xs text-gray-100 pt-6">
-            Copyright batko
-        </p>
     </div>
 </footer>

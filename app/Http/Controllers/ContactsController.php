@@ -121,4 +121,65 @@ class ContactsController extends Controller
 
         return redirect('/contacts')->with('message', 'Contact deleted!');
     }
+
+    public function popular()
+    {
+        return view('contacts.popular');
+    }
+
+    public function sameFirstName()
+    {
+        return view('contacts.sameFirstName')->with('contacts', []);
+    }
+
+    public function getSameFirstName(Request $request)
+    {
+        $request->validate([
+            'fname' => 'required'
+        ]);
+
+        error_log($request->fname);
+
+        $contacts = Contact::where('fname', $request->fname);
+        
+        return view('contacts.sameFirstName')->with('contacts', $contacts->get());
+    }
+
+    public function sameLastName()
+    {
+        return view('contacts.sameLastName')->with('contacts', []);
+    }
+
+    public function getSameLastName(Request $request)
+    {
+        $request->validate([
+            'lname' => 'required'
+        ]);
+
+        error_log($request->lname);
+
+        $contacts = Contact::where('lname', $request->lname);
+
+        return view('contacts.sameLastName')->with('contacts', $contacts->get());
+    }
+
+    public function givenContact()
+    {
+        return view('contacts.givenContact')->with('contacts', []);
+    }
+
+    public function getGivenContact(Request $request)
+    {
+        $request->validate([
+            'fname' => 'required',
+            'lname' => 'required'
+        ]);
+
+        error_log($request->fname);
+
+        $contacts = Contact::where('fname', $request->fname)
+            ->where('lname', $request->lname);
+        
+        return view('contacts.givenContact')->with('contacts', $contacts->get());
+    }
 }
