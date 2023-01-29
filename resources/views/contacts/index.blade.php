@@ -45,7 +45,7 @@
 
         <div class="pt-10">
             <a href="/contacts/{{ $contact->id }}" class="uppercase bg-blue-900 text-white text-md font-extrabold py-3 px-5 rounded-3xl">
-                Keep Reading
+                Show More
             </a>
             @if (isset(Auth::user()->id) && Auth::user()->id == $contact->user_id)
                 <span class="float-right">

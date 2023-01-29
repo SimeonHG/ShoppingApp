@@ -25,10 +25,10 @@
                     </a>
                 </div>
                 <nav class="space-x-4 text-white sm:text-base">
-                    <a class="no-underline hover:underline" href="/">Home</a>
-                    <a class="no-underline hover:underline" href="/contacts">Contacts</a>
-                    <a class="no-underline hover:underline" href="/labels">Labels</a>
-                    <a class="no-underline hover:underline" href="/requests">Requests</a>
+                    <a class="no-underline" href="/">Home</a>
+                    <a class="no-underline" href="/contacts">Contacts</a>
+                    <a class="no-underline" href="/labels">Labels</a>
+                    <a class="no-underline" href="/requests">Requests</a>
 
                     @guest
                         <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>

@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('content')
     <div class="w-4/5 m-auto text-center">
-        <div class="py-15 border-b border-gray-200">
-            <h1 class="text-6xl">
-                Same Last Name
+        <div class="pt-15 text-center">
+            <h1 class="my-5 text-6xl font-bold">
+                Contract with Same Last Name
             </h1>
         </div>
     </div>
 
-    <div class="w-4/5 m-auto">
+    <div class="w-4/5 mx-auto py-6">
         <form action="/contacts/getSameLastName" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -17,26 +17,29 @@
 
                 <button 
                     type="submit"
-                    class="uppercase mt-15 bg-green-400 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
+                    class="uppercase mt-5 bg-blue-900 text-white text-lg font-extrabold py-4 px-8 rounded-3xl">
                     Search
                 </button>
         </form>
     </div>
 
     @foreach ($contacts as $contact)
-    <div class="sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-15 border-b border-gray-200"> 
-        <div>
-            <h2 class="text-gray-700 font-bold text-5xl pb-4">
+    <div class="flex flex-col w-4/5 mx-auto py-5 border-b border-gray-200"> 
+        <div class="flex">
+            <h2 class="text-gray-700 font-bold text-5xl mr-3">
                 {{ $contact->fname }}
             </h2>
-            <h2 class="text-gray-700 font-bold text-5xl pb-10">
+            <h2 class="text-gray-700 font-bold text-5xl">
                 {{ $contact->lname }}
             </h2>
-
-            <a href="/contacts/{{ $contact->id }}" class="uppercase bg-green-400 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
-                Keep Reading
-            </a>
         </div>
+
+        <a 
+            href="/contacts/{{ $contact->id }}" 
+            class="uppercase w-1/5 text-center mt-15 bg-blue-900 text-white text-lg font-extrabold py-4 px-8 rounded-3xl"
+        >
+            Show More
+        </a>
     </div>
     @endforeach
 @endsection('content')
