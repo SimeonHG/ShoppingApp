@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Card;
-
+use App\Models\Item;
 
 use Illuminate\Http\Request;
 
-class CardsController extends Controller
+class ItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class CardsController extends Controller
      */
     public function index()
     {
-        return view('cards.index')
-        ->with('card', Card::orderBy('updated_at', 'DESC')->get());
+        return view('items.index')
+        ->with('items', Item::orderBy('updated_at', 'DESC')->get());
 
     }
 
@@ -27,7 +26,7 @@ class CardsController extends Controller
      */
     public function create()
     {
-        return view('cards.create');
+        return view('items.create');
     }
 
     /**
@@ -39,18 +38,18 @@ class CardsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'number' => 'required'
+            'name' => 'required'
         ]);
 
 
-        Card::create([
-            'number' => $request->input('number'),
-            'bankName' => $request->input('bankName'),
-            'secCode' => $request->input('secCode'),
+        Item::create([
+            'name' => $request->input('name'),
+            'price' => $request->input('price'),
+            'desc' => $request->input('desc'),
             'user_id' => auth()->user()->id
 
         ]);
-        return redirect('/cards')->with('message', 'Card created!');
+        return redirect('/items')->with('message', 'Item created!');
 
     }
 
@@ -62,7 +61,7 @@ class CardsController extends Controller
      */
     public function show($id)
     {
-        return view('cards.show')->with('card', Card::where('id', $id)->first());
+        return view('items.show')->with('item', Item::where('id', $id)->first());
 
     }
 
@@ -74,7 +73,7 @@ class CardsController extends Controller
      */
     public function edit($id)
     {
-        return view('cards.edit')->with('card', Card::where('id', $id)->first());
+        return view('items.edit')->with('item', Item::where('id', $id)->first());
 
     }
 
@@ -88,20 +87,19 @@ class CardsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'number' => 'required'
+            'name' => 'required'
         ]);
 
 
-        Card::where('id', $id)
+        Item::where('id', $id)
         ->update([
-            'number' => $request->input('number'),
-            'bankName' => $request->input('bankName'),
-            'secCode' => $request->input('secCode'),
+            'name' => $request->input('name'),
+            'price' => $request->input('price'),
+            'desc' => $request->input('desc'),
             'user_id' => auth()->user()->id
 
         ]);
-        return redirect('/cards')->with('message', 'Card updated!');
-        
+        return redirect('/items')->with('message', 'Item updated!');
     }
 
     /**
@@ -112,10 +110,10 @@ class CardsController extends Controller
      */
     public function destroy($id)
     {
-        $card = Card::where('id', $id);
-        $card->delete();
+        $item = Item::where('id', $id);
+        $item->delete();
 
-        return redirect('/cards')->with('message', 'Card deleted!');
+        return redirect('/items')->with('message', 'Item deleted!');
 
     }
 }

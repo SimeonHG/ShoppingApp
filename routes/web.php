@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PagesController;
 use \App\Http\Controllers\PostsController;
+use \App\Http\Controllers\CardsController;
+use \App\Http\Controllers\ItemsController;
 use \App\Http\Controllers\ContactsController;
 use \App\Http\Controllers\LabelsController;
 use \App\Http\Controllers\RequestsController;
@@ -39,6 +41,11 @@ Route::post('/labels/{id}/detachContact', [LabelsController::class, 'detachConta
 Route::resource('/labels', LabelsController::class);
 
 Route::resource('/users', UsersController::class);
+
+Route::resource('/cards', CardsController::class);
+
+Route::resource('/items', ItemsController::class);
+
 
 Route::resource('/requests', RequestsController::class);
 
