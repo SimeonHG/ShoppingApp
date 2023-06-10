@@ -1,14 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\PagesController;
-use \App\Http\Controllers\PostsController;
-use \App\Http\Controllers\CardsController;
-use \App\Http\Controllers\ItemsController;
-use \App\Http\Controllers\ContactsController;
-use \App\Http\Controllers\LabelsController;
-use \App\Http\Controllers\RequestsController;
-use \App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,40 +12,35 @@ use \App\Http\Controllers\UsersController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', [PagesController::class, 'index']);
 
-Route::get('/contacts/popular', [ContactsController::class, 'popular'])->name('popular');
-
-Route::get('/contacts/sameFirstName', [ContactsController::class, 'sameFirstName'])->name('sameFirstName');
-Route::post('/contacts/getSameFirstName', [ContactsController::class, 'getSameFirstName'])->name('getSameFirstName');
-
-Route::get('/contacts/sameLastName', [ContactsController::class, 'sameLastName'])->name('sameLastName');
-Route::post('/contacts/getSameLastName', [ContactsController::class, 'getSameLastName'])->name('getSameLastName');
-
-Route::get('/contacts/givenContact', [ContactsController::class, 'givenContact'])->name('givenContact');
-Route::post('/contacts/getGivenContact', [ContactsController::class, 'getGivenContact'])->name('getGivenContact');
-
-Route::resource('/contacts', ContactsController::class);
-
-Route::post('/labels/{id}/attachContact', [LabelsController::class, 'attachContact'])->name('attachContact');
-Route::post('/labels/{id}/detachContact', [LabelsController::class, 'detachContact'])->name('detachContact');
-
-Route::resource('/labels', LabelsController::class);
-
-Route::resource('/users', UsersController::class);
-
-Route::resource('/cards', CardsController::class);
-
-Route::resource('/items', ItemsController::class);
-
-
-Route::resource('/requests', RequestsController::class);
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
-Route::get('/index', [\App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}/update', [UserController::class, 'update'])->name('users.update');
+    Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/roles/{role}', [RoleController::class, 'show'])->name('roles.show');
+    Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+    Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+    Route::post('/roles/{role}/assign', [RoleController::class, 'assign'])->name('roles.assign');
+    // Route::post('/buy', [ProductController::class, 'buyProduct'])->name('product.buy');
+    Route::post('/products/{product}/buy', [ProductController::class, 'buyProduct'])->name('products.buy');
+    Route::get('/products/cart', [ProductController::class, 'cart'])->name('products.cart');
+    Route::resource('/products', ProductController::class);
+    Route::resource('/shops', ShopController::class);
+    Route::post('/products/finish', [ProductController::class, 'finish'])->name('products.finish');
+});

@@ -7,55 +7,119 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Address Book') }}</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    
-    <!-- Styles -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @viteReactRefresh
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-100 h-screen antialiased leading-none font-sans">
+<body>
+    
     <div id="app">
-        <header class="bg-blue-900 py-6 absolute top-0 left-0 w-full">
-            <div class="container mx-auto flex justify-between items-center px-6">
-                <div>
-                    <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline">
-                        {{ config('app.name', 'Address Book') }}
-                    </a>
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav me-auto">
+
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">Home</a>
+                    </li>
+                        <!-- Authentication Links -->
+                        @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('products.index') }}">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('shops.index') }}">Shops</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('products.cart') }}">Cart</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
+                    </ul>
                 </div>
-                <nav class="space-x-4 text-white sm:text-base">
-                    <a class="no-underline" href="/">Home</a>
-                    <a class="no-underline" href="/contacts">Contacts</a>
-                    <a class="no-underline" href="/labels">Labels</a>
-                    <a class="no-underline" href="/requests">Requests</a>
-
-                    @guest
-                        <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        @if (Route::has('register'))
-                            <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        @endif
-                    @else
-                        <a href="/users">{{ Auth::user()->fname }}</a>
-
-                        <a href="{{ route('logout') }}"
-                           class="no-underline hover:underline"
-                           onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                            {{ csrf_field() }}
-                        </form>
-                    @endguest
-                </nav>
             </div>
-        </header>
-        <div>
-           @yield('content')
-        </div>
+        </nav>
 
-        <!-- <div>
-           @include('layouts.footer')
-        </div> -->
+        <main class="py-4">
+            @yield('content')
+        </main>
     </div>
+
+    <script>
+        // Fetch the cart counter element
+        const cartCounter = document.getElementById('cart-counter');
+
+        // Function to update the cart counter value
+        function updateCartCounter(counter) {
+            cartCounter.textContent = counter;
+        }
+
+        // Function to handle the "Buy" button click event
+        function handleBuyButtonClick(productId) {
+            // Make an AJAX request to update the cart counter value
+            fetch('/cart/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Add the CSRF token here
+            },
+            body: JSON.stringify({ productId }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                updateCartCounter(data.counter);
+            })
+            .catch(error => {
+                console.error('Error updating cart counter:', error);
+            });
+        }
+    </script>
+
 </body>
 </html>

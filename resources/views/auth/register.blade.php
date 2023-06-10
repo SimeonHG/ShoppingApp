@@ -1,152 +1,132 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="sm:container sm:mx-auto sm:max-w-lg sm:mt-20">
-    <div class="flex">
-        <div class="w-full">
-            <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Register') }}</div>
 
-                <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
-                    {{ __('Register') }}
-                </header>
+                <div class="card-body">
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
 
-                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST"
-                    action="{{ route('register') }}">
-                    @csrf
+                        <div class="row mb-3">
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
-                    <div class="flex flex-wrap">
-                        <label for="fname" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('First Name') }}:
-                        </label>
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                        <input id="fname" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
-                            name="fname" value="{{ old('fname') }}" required autocomplete="fname" autofocus>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
-                        @error('fname')
-                        <p class="text-red-500 text-xs italic mt-4">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
+                        <div class="row mb-3">
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
-                    <div class="flex flex-wrap">
-                        <label for="lname" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('Last Name') }}:
-                        </label>
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
-                        <input id="lname" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
-                            name="lname" value="{{ old('lname') }}" required autocomplete="lname" autofocus>
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
-                        @error('lname')
-                        <p class="text-red-500 text-xs italic mt-4">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
+                        <div class="row mb-3">
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
-                    <div class="flex flex-wrap">
-                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('E-Mail Address') }}:
-                        </label>
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
-                        <input id="email" type="email"
-                            class="form-input w-full @error('email') border-red-500 @enderror" name="email"
-                            value="{{ old('email') }}" required autocomplete="email">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
-                        @error('email')
-                        <p class="text-red-500 text-xs italic mt-4">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
+                        <div class="row mb-3">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
-                    <div class="flex flex-wrap">
-                        <label for="address" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('Address') }}:
-                        </label>
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
 
-                        <input id="address" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
-                            name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
+                        <!-- Bank fields -->
+                        <div class="form-group">
+                            <label for="bank_name">Bank Name:</label>
+                            <input id="bank_name" type="text" class="form-control" name="bank_name" value="{{ old('bank_name') }}" required autocomplete="bank_name">
+                        </div>
 
-                        @error('address')
-                        <p class="text-red-500 text-xs italic mt-4">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
+                        <div class="form-group">
+                            <label for="bank_account_number">Bank Account Number:</label>
+                            <input id="bank_account_number" type="text" class="form-control" name="bank_account_number" value="{{ old('bank_account_number') }}" required autocomplete="bank_account_number">
+                        </div>
 
-                    <div class="flex flex-wrap">
-                        <label for="age" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('Age') }}:
-                        </label>
+                        <!-- <div class="row mb-3">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="button" class="btn btn-primary" onclick="addBankAccount()">Add Bank Account</button>
+                            </div>
+                        </div> -->
 
-                        <input id="age" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
-                            name="age" value="{{ old('age') }}" required autocomplete="age" autofocus>
-
-                        @error('age')
-                        <p class="text-red-500 text-xs italic mt-4">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
-
-                    <div class="flex flex-wrap">
-                        <label for="gender" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('Gender') }}:
-                        </label>
-
-                        <input id="gender" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
-                            name="gender" value="{{ old('gender') }}" required autocomplete="gender" autofocus>
-
-                        @error('gender')
-                        <p class="text-red-500 text-xs italic mt-4">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
-
-                    <div class="flex flex-wrap">
-                        <label for="password" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('Password') }}:
-                        </label>
-
-                        <input id="password" type="password"
-                            class="form-input w-full @error('password') border-red-500 @enderror" name="password"
-                            required autocomplete="new-password">
-
-                        @error('password')
-                        <p class="text-red-500 text-xs italic mt-4">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
-
-                    <div class="flex flex-wrap">
-                        <label for="password-confirm" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('Confirm Password') }}:
-                        </label>
-
-                        <input id="password-confirm" type="password" class="form-input w-full"
-                            name="password_confirmation" required autocomplete="new-password">
-                    </div>
-
-                    <div class="flex flex-wrap">
-                        <button type="submit"
-                            class="w-full select-none font-bold whitespace-no-wrap p-3 rounded-lg text-base leading-normal no-underline text-gray-100 bg-green-400 hover:bg-blue-700 sm:py-4">
-                            {{ __('Register') }}
-                        </button>
-
-                        <p class="w-full text-xs text-center text-gray-700 my-6 sm:text-sm sm:my-8">
-                            {{ __('Already have an account?') }}
-                            <a class="text-green-400 hover:text-blue-700 no-underline hover:underline" href="{{ route('login') }}">
-                                {{ __('Login') }}
-                            </a>
-                        </p>
-                    </div>
-                </form>
-
-            </section>
+                        <div class="row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</main>
+</div>
+@endsection
+
+@section('scripts')
+<script>
+    function addBankAccount() {
+        var container = document.getElementById('bank-accounts-container');
+
+        var bankAccountDiv = document.createElement('div');
+        bankAccountDiv.className = 'row mb-3 bank-account';
+
+        var bankNameLabel = document.createElement('div');
+        bankNameLabel.className = 'col-md-4 text-md-end';
+        bankNameLabel.textContent = 'Bank Name';
+
+        var bankNameInput = document.createElement('input');
+        bankNameInput.type = 'text';
+        bankNameInput.className = 'form-control';
+        bankNameInput.name = 'bank_names[]';
+        bankNameInput.required = true;
+
+        var bankAccountNumberLabel = document.createElement('div');
+        bankAccountNumberLabel.className = 'col-md-4 text-md-end';
+        bankAccountNumberLabel.textContent = 'Bank Account Number';
+
+        var bankAccountNumberInput = document.createElement('input');
+        bankAccountNumberInput.type = 'text';
+        bankAccountNumberInput.className = 'form-control';
+        bankAccountNumberInput.name = 'bank_account_numbers[]';
+        bankAccountNumberInput.required = true;
+
+        bankAccountDiv.appendChild(bankNameLabel);
+        bankAccountDiv.appendChild(bankNameInput);
+        bankAccountDiv.appendChild(bankAccountNumberLabel);
+        bankAccountDiv.appendChild(bankAccountNumberInput);
+
+        container.appendChild(bankAccountDiv);
+    }
+</script>
 @endsection
