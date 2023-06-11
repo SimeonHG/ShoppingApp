@@ -3,9 +3,9 @@
 
 @section('content')
 <h1>Shops</h1>
-
+@can('manage_shops')
 <a href="{{ route('shops.create') }}">Create New Shop</a>
-
+@endcan
 <table>
     <thead>
         <tr>
@@ -21,11 +21,15 @@
             <td>{{ $shop->address }}</td>
             <td>
                 <a href="{{ route('shops.show', $shop) }}">View</a>
+                @can('manage_shops')
                 <a href="{{ route('shops.edit', $shop) }}">Edit</a>
+                @endcan
                 <form action="{{ route('shops.destroy', $shop) }}" method="POST">
                     @csrf
                     @method('DELETE')
+                    @can('manage_shops')
                     <button type="submit">Delete</button>
+                    @endcan
                 </form>
             </td>
         </tr>

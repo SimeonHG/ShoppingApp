@@ -20,11 +20,9 @@ class RolesAndPermissionsSeeder extends Seeder
         // Permissions
         $permissions = [
             'access_admin_panel',
-            'manage_users',
-            'manage_roles',
             'manage_products',
             'manage_shops',
-            // Add more permissions as needed
+            'view_products'
         ];
 
         foreach ($permissions as $permission) {
@@ -33,9 +31,9 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // Assign permissions to roles
         $administratorRole->givePermissionTo(Permission::all());
-        $moderatorRole->givePermissionTo(['manage_users', 'manage_roles', 'manage_products', 'manage_shops',]);
-        // $buyerRole->givePermissionTo('view_products');
+        $moderatorRole->givePermissionTo(['manage_products', 'manage_shops',]);
         $providerRole->givePermissionTo('manage_products');
+        $buyerRole->givePermissionTo('view_products');
     }
 
 }

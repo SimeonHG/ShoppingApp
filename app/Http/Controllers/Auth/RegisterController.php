@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Bank;
+use App\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -64,6 +65,14 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $roleName = 'buyer';
+
+        $role = Role::where('name', $roleName)->first();
+
+        if ($role) {
+            $user->assignRole($role);
+        }
     
         $bank = Bank::create([
             'bank_name' => $data['bank_name'],

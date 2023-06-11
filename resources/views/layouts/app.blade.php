@@ -54,9 +54,16 @@
                                 </li>
                             @endif
                         @else
+                            @can('access_admin_panel')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
+                                </li>
+                            @endcan
+                            @can('manage_products')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('products.index') }}">Products</a>
                             </li>
+                            @endcan
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('shops.index') }}">Shops</a>
                             </li>

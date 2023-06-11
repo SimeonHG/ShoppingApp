@@ -15,12 +15,12 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            if (!Gate::allows('manage_products')) {
+            if (Gate::denies('manage_products')) {
                 abort(403);
             }
             
             return $next($request);
-        })->except(['index', 'show']);
+        });
     }
 
     public function index()
