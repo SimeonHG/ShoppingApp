@@ -21,6 +21,6 @@ class Role extends SpatieRole
 
     public function permissions(): BelongsToMany
     {
-        return $this->belongsToMany(Permission::class);
+        return $this->belongsToMany(Permission::class, 'role_has_permissions');
     }
 }

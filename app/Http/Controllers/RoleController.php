@@ -10,9 +10,21 @@ use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware(function ($request, $next) {
+    //         if (Gate::denies('access_admin_panel')) {
+    //             abort("403");
+    //         }
+
+    //         return $next($request);
+    //     });
+    // }
+
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::with('permissions')->get();
         return view('roles.index', compact('roles'));
     }
 
@@ -26,12 +38,19 @@ class RoleController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|unique:roles',
+            'permissions' => 'array',
         ]);
 
-        Role::create($validatedData);
+        $role = Role::create($validatedData);
+
+        if ($request->has('permissions')) {
+            $permissions = Permission::whereIn('id', $request->input('permissions'))->get();
+            $role->permissions()->sync($permissions);
+        }
 
         return redirect()->route('roles.index')->with('success', 'Role created successfully');
     }
+
 
 
     public function assign(Role $role)
@@ -40,6 +59,14 @@ class RoleController extends Controller
         $user->assignRole($role);
 
         return redirect()->route('roles.show', $role)->with('success', 'Role assigned to user successfully.');
+    }
+
+    public function unassign(Role $role)
+    {
+        $user = User::find(request('user'));
+        $user->removeRole($role);
+
+        return redirect()->route('roles.show', $role)->with('success', 'Role unassigned from user successfully.');
     }
 
 

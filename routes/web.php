@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
     Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
     Route::post('/roles/{role}/assign', [RoleController::class, 'assign'])->name('roles.assign');
+    Route::post('/roles/{role}/unassign', [RoleController::class, 'unassign'])->name('roles.unassign');
     // Route::post('/buy', [ProductController::class, 'buyProduct'])->name('product.buy');
     Route::post('/products/{product}/buy', [ProductController::class, 'buyProduct'])->name('products.buy');
     Route::get('/products/cart', [ProductController::class, 'cart'])->name('products.cart');

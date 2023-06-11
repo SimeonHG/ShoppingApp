@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Gate;
 class ShopController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (Gate::denies('manage_shops')) {
+                abort(403);
+            }
+            
+            return $next($request);
+        })->except(['index', 'show']);
+    }
+
     public function index()
     {
         $shops = Shop::all();
