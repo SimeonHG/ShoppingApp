@@ -20,6 +20,15 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/home';
 
     /**
+     * The path to your application's "shops" route.
+     *
+     * Users are redirected here after authentication.
+     *
+     * @var string
+     */
+    public const SHOPS='/shops';
+
+    /**
      * Define your route model bindings, pattern filters, and other route configuration.
      */
     public function boot(): void

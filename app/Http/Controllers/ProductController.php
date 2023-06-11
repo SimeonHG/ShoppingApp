@@ -163,7 +163,6 @@ class ProductController extends Controller
         $user = auth()->user();
         $user->bought_products()->detach();
 
-        return redirect()->route('home');
+        return redirect()->route('products.index'); 
     }
-
 }

@@ -1,8 +1,85 @@
 // Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+@import url("https://fonts.bunny.net/css?family=Nunito");
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
+
+.roles {
+    .permissions {
+        height: 2rem;
+
+        .rounded-pill {
+            display: flex;
+            align-items: center;
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+    }
+    .actions {
+        .button {
+            width: 6rem;
+            border-radius: 0.5rem;
+        }
+    }
+
+    .footer_buttons {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+
+        a {
+            width: 8rem;
+            border-radius: 0.5rem;
+        }
+    }
+}
+
+.products,
+.shops {
+    button,
+    a {
+        width: 8rem;
+        border-radius: 0.5rem;
+    }
+
+    .footer_buttons {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+
+        a {
+            width: 10rem;
+            border-radius: 0.5rem;
+        }
+    }
+}
+
+.show-product,
+.show-shop {
+    h3 {
+        margin: 1rem 0;
+    }
+
+    a {
+        width: 20rem;
+    }
+}
+
+.edit-product,
+.create-product,
+.create-role,
+.show-role,
+.create-shop,
+.edit-shop,
+.show-shop,
+.register,
+.login,
+.edit-user {
+    button {
+        width: 8rem;
+        border-radius: 0.5rem;
+    }
+}

@@ -2,18 +2,44 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Edit Shop</h1>
+    <div class="container edit-shop">
+        <h1 class="mb-5">Edit Shop</h1>
 
-<form method="POST" action="{{ route('shops.update', $shop) }}">
-    @csrf
-    @method('PUT')
+        <div class="row">
+            <div class="col">
+                <form method="POST" action="{{ route('shops.update', $shop) }}">
+                    @csrf
+                    @method('PUT')
+                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                    <div>
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $shop->name) }}" required autocomplete="name" autofocus>
 
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" value="{{ $shop->name }}">
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    
+                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+                    <div>
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $shop->address) }}" required autocomplete="name" autofocus>
 
-    <label for="address">Address:</label>
-    <input type="text" name="address" id="address" value="{{ $shop->address }}">
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
 
-    <button type="submit">Update</button>
-</form>
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-success">
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
 @endsection
