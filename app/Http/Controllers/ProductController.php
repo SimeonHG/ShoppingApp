@@ -44,19 +44,21 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required|numeric',
             'expiration_date' => 'nullable|date',
-            'shop_id' => 'required',
+            'shop_ids' => 'required|array',
         ]);
 
         $productData = $request->only(['name', 'description', 'expiration_date', 'price']);
 
         $product = Auth::user()->products()->create($productData);
 
-        // Attach the product to the selected shop
-        $shop = Shop::findOrFail($request->input('shop_id'));
-        $shop->products()->attach($product);
+        // Attach the product to the selected shops
+        $shopIds = $request->input('shop_ids');
+        $shops = Shop::whereIn('id', $shopIds)->get();
+        $product->shops()->attach($shops);
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
+
 
 
     /**
