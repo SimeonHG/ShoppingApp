@@ -41,4 +41,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('/products', ProductController::class);
     Route::resource('/shops', ShopController::class);
     Route::post('/products/finish', [ProductController::class, 'finish'])->name('products.finish');
+    Route::post('/users/banks/store', [UserController::class, 'addBank'])->name('users.addBank');
+    Route::get('/users/banks/create', [UserController::class, 'createBank'])->name('users.createBank');
 });

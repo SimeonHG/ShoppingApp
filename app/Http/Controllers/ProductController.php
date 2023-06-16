@@ -20,7 +20,7 @@ class ProductController extends Controller
             }
             
             return $next($request);
-        });
+        })->except(['buyProduct', 'cart', 'finish']);
     }
 
     public function index()
@@ -163,6 +163,8 @@ class ProductController extends Controller
         $user = auth()->user();
         $user->bought_products()->detach();
 
-        return redirect()->route('products.index'); 
+        $shops = Shop::all();
+
+        return view('shops.index', compact('shops'));
     }
 }

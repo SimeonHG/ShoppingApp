@@ -44,9 +44,7 @@
                         </ul>
                     @endif
 
-                    <button type="submit" class="btn btn-primary mt-3" style="width: 10rem">
-                        Add Bank Account
-                    </button>
+                    <a class="btn btn-primary mt-3" style="width: 10rem" href="{{ route('users.createBank') }}">Add Bank Account</a>
 
                     <div class="d-flex justify-content-end mt-3">
                         <button type="submit" class="btn btn-success">
